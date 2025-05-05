@@ -5,6 +5,10 @@ import Product from "../components/pages/Product";
 import Blogs from "../components/pages/Blogs";
 import Contact from "../components/pages/Contact";
 import About from "../components/pages/About";
+// import Login from "../components/auth/Login";
+// import Register from "../components/auth/Register";
+import LoginM from "../components/auth/LoginM";
+import RegisterM from "../components/auth/RegisterM";
 
 
 
@@ -34,6 +38,14 @@ const router = createBrowserRouter([
             {
                 path: 'about',
                 Component: About
+            },
+            {
+                path: 'login',
+                Component: LoginM
+            },
+            {
+                path: 'register',
+                Component: RegisterM
             }
         ]
        
