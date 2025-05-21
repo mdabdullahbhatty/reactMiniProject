@@ -9,6 +9,7 @@ import About from "../components/pages/About";
 // import Register from "../components/auth/Register";
 import LoginM from "../components/auth/LoginM";
 import RegisterM from "../components/auth/RegisterM";
+import TermsAndConditions from "../components/pages/TermsAndConditions";
 
 
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: RegisterM
+            },
+            {
+                path:'termAndcondition',
+                Component: TermsAndConditions
             }
         ]
        

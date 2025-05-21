@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaBars } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { Link, useLocation } from 'react-router';
+import { FaToggleOff, FaToggleOn } from "react-icons/fa6";
+import DarkMood from './DarkMood';
+import { userContext } from '../../contexts/ProfileContext';
+
+
 
 const Navbar = () => {
+ 
+    const { userProfile } = useContext(userContext);
 
+   
 
     const [isOpen, setIsOpen] = useState(false)
     const [activeLink, setActiveLink] = useState('/')
     const location = useLocation()
+    const [darkButton, setDarkButton] = useState(false)
 
     useEffect(() => {
         setActiveLink(location.pathname || "/")
     }, [location.pathname])
 
-    const toggleMenw = () => {
-        setIsOpen(!isOpen);
-    }
+    // const toggleMenw = () => {
+    //     setIsOpen(!isOpen);
+    // }
 
     const handleActiveLink = (path) => {
         setActiveLink(path);
@@ -24,7 +33,8 @@ const Navbar = () => {
 
     return (
 
-        <nav className='bg-green-800 text-white py-4 md:py-6 border-green-900 border-b-4 sticky z-10 top-0'>
+        <nav className='bg-black/50 fixed text-white py-4 md:py-6  border-b-4 w-full z-10 top-0'>
+
 
             <div className='flex justify-between items-center container mx-auto'>
 
@@ -33,7 +43,7 @@ const Navbar = () => {
                 {/* Mobile Menu Button */}
 
                 <div >
-                    <button className='cursor-pointer text-3xl md:hidden' onClick={toggleMenw}>
+                    <button className='cursor-pointer text-3xl md:hidden' onClick={() => setIsOpen(!isOpen)}>
                         {
                             isOpen ? <IoCloseSharp /> : <FaBars />
                         }
@@ -52,7 +62,11 @@ const Navbar = () => {
 
 
 
-                <Link to={'/login'}><button className='bg-gray-200 px-4 py-2.5 font-semibold rounded-md text-black hover:text-gray-600 cursor-pointer transition hidden md:flex'>Login</button></Link>
+                {
+                    userProfile ? <button className='bg-gray-200 px-4 py-2.5 font-semibold rounded-md text-black hover:text-gray-600 cursor-pointer transition hidden md:flex'>Log Out</button>
+                     : 
+                     <Link to={'/login'}><button className='bg-gray-200 px-4 py-2.5 font-semibold rounded-md text-black hover:text-gray-600 cursor-pointer transition hidden md:flex'>Login</button></Link>
+                }
 
                 {/* Mobile menu for responsive */}
 
@@ -69,8 +83,44 @@ const Navbar = () => {
                         </li>
                     </ul>
 
+
+
                 </div>
 
+
+                <div>
+                    {
+                        userProfile && <div className='group flex flex-col relative transition-all ease-in-out duration-200 cursor-pointer'>
+
+                            {
+                                userProfile.userPhoto && <img src={userProfile.userPhoto} alt="user Photo" className='w-10 rounded-full' />
+                            }
+
+                            <div className='hidden group-hover:block absolute top-9 -left-12 z-50'>
+                                {
+                                    userProfile.name ? <p> {userProfile.name} </p> : <p>Hi</p>
+                                }
+                                {
+                                    userProfile.email && <p className=' group-hover:flex'> {userProfile.email} </p>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                {/* <div className='relative flex items-center justify-center'>
+                    <FaToggleOn 
+                    onClick={() => setDarkButton(!darkButton)}  
+                    className={`${darkButton ? 'text-3xl absolutetext-3xl absolute' : 'hidden'}`}
+                    />
+
+                    <FaToggleOff 
+                    onClick={() => setDarkButton(!darkButton)} 
+                    className='text-3xl absolute' 
+                    />
+
+                    
+                </div> */}
             </div>
 
 
